@@ -61,7 +61,7 @@ def shortest_path(term_couples):
 
 def leack_chodorow(term_couples):
     wordnet_maxdepth = getMaxDepthWordnet()
-    print("WORDNET MAX DEPTH: ",wordnet_maxdepth)
+    #print("WORDNET MAX DEPTH: ",wordnet_maxdepth)
     similarities = []
     for term_couple in term_couples:
         max_sim = -100000
@@ -88,7 +88,7 @@ def main():
     print("################# SHORTEST PATH CALCULUS COMPLETED")
 
     leackchodorow_sim = leack_chodorow(term_couples)
-    print("################# LEAKCOCK CHODOROW CALUCLUS COMPLETED")
+    print("################# LEAKCOCK CHODOROW CALCULUS COMPLETED")
 
     print("WuPalmer_pearson: ",pearsonr(wu_palmer_sim,similarities))
     print("WuPalmer_spearman: ",spearmanr(wu_palmer_sim,similarities))
@@ -97,6 +97,7 @@ def main():
     print("LeakcockChodorow_pearson: ",pearsonr(leackchodorow_sim,similarities))
     print("LeakcockChodorow_spearman: ",spearmanr(leackchodorow_sim,similarities))
 
+    #for debug purposes
     print(min(similarities),"--",max(similarities))
     print(min(wu_palmer_sim),"--",max(wu_palmer_sim))
     print(min(short_path_sim),"--",max(short_path_sim))

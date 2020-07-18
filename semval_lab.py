@@ -161,6 +161,7 @@ def consegna1():
 
     annotated_couples = readAnnotatedCouples()
     pd.to_numeric(annotated_couples['score'], errors='ignore')
+    #normalizzo lo score annotato manualmente
     annotated_couples['score']=(annotated_couples['score']-annotated_couples['score'].min())/(annotated_couples['score'].max()-annotated_couples['score'].min())
     #print(annotated_couples)
     babelTerms,sens2syn_dict = getBabelTerms(annotated_couples)
@@ -242,14 +243,6 @@ def calculateBestSimilarityNasariSynset(annotated_df):
     #calculate cosine similarity for each row
     for i in filtered_df.index:
         #get embedded
-        '''
-        babel1 = filtered_df.iloc[i, :]['babel1']
-        babel2 = filtered_df.iloc[i, :]['babel2']
-        babel1_embeds = getTermsFromBabelIds([babel1],nasari_df)[0]
-        babel2_embeds = getTermsFromBabelIds([babel2],nasari_df)[0]
-        filtered_df.at[i, 'first_syn_terms_embed'] = [babel1_embeds] #metto come lista perchè riuso il metodo cosinesimilarity che si aspetta una lista
-        filtered_df.at[i, 'second_syn_terms_embed'] = [babel2_embeds]
-        '''
         filtered_df,sens2syn_dict = getBabelTerms(filtered_df)
         nasari_sim_df = calculateNasariSimilarity(filtered_df,sens2syn_dict)
     #print(nasari_sim_df)
@@ -287,7 +280,7 @@ def calculateBestSimilarityNasariSynset(annotated_df):
         index+=1
     print("Accuracy over couples: ",correct/len(most_similar_syn2))
 
-def consegna2(consegna1_df):
+def consegna2():
     annotated_df = readSynsetManuallyAnnotated()
     print(annotated_df)
     calculateBestSimilarityNasariSynset(annotated_df)
@@ -295,7 +288,8 @@ def consegna2(consegna1_df):
 
 def main():
     consegna1_df = consegna1()
-    consegna2(consegna1_df)
+    print("################################################\n##########################################\n#########################")
+    consegna2()
 
 if __name__ == "__main__":
     main()

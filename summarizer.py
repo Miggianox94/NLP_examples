@@ -4,7 +4,7 @@ from nltk.corpus import stopwords
 import pandas as pd
 
 #indica di quanto vorrei ridurre la lunghezza del testo
-REDUCTION_RATE = 0.5
+REDUCTION_RATE = 0.3
 TOPIC_METHOD = 'title'
 babel_api = BabelnetAPI('07825ba5-007d-44fb-8d36-b70fcd096ef5')
 LEMMATIZER = WordNetLemmatizer()
@@ -105,17 +105,7 @@ def getBabelIdsFromParagraph(paragraph):
 #return a score for the paragraph_terms_vect. It get the max WO of each paragraph with context
 def getScoreForParagraph(paragraph_terms_vect, context_terms_vect):
     #calculate square-rooted Weighted Overlap between parameters
-    '''
-    overlap_terms = set(paragraph_terms).intersection(set(context_terms))
-    if len(overlap_terms) == 0:
-        return 0
-    numerator = 0
-    for term in overlap_terms:
-        numerator+= paragraph_terms.index(term)+context_terms.index(term)
-    numerator = numerator**-1
-    denominator = (2*len(overlap_terms))**-1
-    return numerator/denominator
-    '''
+
     max = 0
     for paragraph_terms in paragraph_terms_vect:
         for context_terms in context_terms_vect:
@@ -124,7 +114,7 @@ def getScoreForParagraph(paragraph_terms_vect, context_terms_vect):
                 continue
             numerator = 0
             for term in overlap_terms:
-                numerator+= paragraph_terms.index(term)+context_terms.index(term)
+                numerator+= paragraph_terms.index(term)+context_terms.index(term) #uso il rank
             if numerator == 0:
                 continue
             numerator = numerator**-1
@@ -187,6 +177,7 @@ def main():
 
     for doc in doc_paths:
         print("Processing doc: ",doc)
+        #questo if era per una prova precedente, potrebbe essere rimosso
         if "Napoleon" in doc:
             summarize_doc(doc, True)
         else:

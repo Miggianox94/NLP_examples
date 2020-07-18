@@ -283,8 +283,12 @@ def assignSinsetToFrameName(frame_name,frame_context):
     best_sense = None
     max_overlap = -1
     if len(frame_name.split("_")) > 1:
-        frame_name = frame_name.split("_")[-1]
+        frame_name = frame_name.split("_")[-1] #prendo l'ultima
     frame_name = LEMMATIZER.lemmatize(frame_name.lower())
+    
+    #NOTA: quando i nomi sono fatti da due termini il metodo synsets sembra non trovare nulla
+    #if frame_name == 'hand over':
+    #    print("SYNSET FOR HAND OVER-----: ",len(wn.synsets(frame_name)))
     for sense in wn.synsets(frame_name):
         sense_context = extract_sense_context(sense)
         overlap = computeoverlap(sense_context,frame_context)
@@ -379,7 +383,7 @@ def main():
     for frame_name in frames:
         synset_frame_name, synset_lexical_units, synset_frame_elements = processFrame(frame_name,frames[frame_name])
         print("\t---SYNSET FOR FRAME NAME: ",synset_frame_name)
-        print("\t---SYNSET FOR LEXICAL UNITS: ")
+        print("\t---SYNSET FOR LEXICAL UNITS: ") #Lu che evocano quel frame
         pp.pprint(synset_lexical_units)
         print("\t---SYNSET FOR FRAME ELEMENTS: ")
         pp.pprint(synset_frame_elements)
