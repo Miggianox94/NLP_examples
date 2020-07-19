@@ -232,7 +232,7 @@ def calculateBestSimilarityNasariSynset(annotated_df):
     filtered_df = filtered_df.reset_index()
     #print(filtered_df)
     #read nasari embed
-    nasari_df = read_nasari()
+    #nasari_df = read_nasari()
 
     #read sense2synset
     #babel_term_synset_mapper = read_sense2synset()
